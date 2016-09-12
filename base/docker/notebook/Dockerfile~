@@ -2,16 +2,16 @@ FROM smly/base:0.4
 MAINTAINER Kohei <i@ho.lc>
 
 # tini
-RUN wget -e HTTPS_PROXY=10.81.247.8:8080 --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
-    echo "faafbfb5b079303691a939a747d7f60591f2143164093727e870b289a44d9872 *tini" | sha256sum -c - && \
-    mv tini /usr/local/bin/tini && \
-    chmod +x /usr/local/bin/tini
-
-# tini
-#RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
+#RUN wget -e HTTPS_PROXY=10.81.247.8:8080 --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
 #    echo "faafbfb5b079303691a939a747d7f60591f2143164093727e870b289a44d9872 *tini" | sha256sum -c - && \
 #    mv tini /usr/local/bin/tini && \
 #    chmod +x /usr/local/bin/tini
+
+# tini
+RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
+    echo "faafbfb5b079303691a939a747d7f60591f2143164093727e870b289a44d9872 *tini" | sha256sum -c - && \
+    mv tini /usr/local/bin/tini && \
+    chmod +x /usr/local/bin/tini
 
 ENV NB_USER mlkeiba
 ENV NB_UID 1000
