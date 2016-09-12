@@ -1,5 +1,5 @@
-FROM miyamamoto/base:0.1
-MAINTAINER Kohei <i@ho.lc>
+FROM miyamamoto/base:latest
+MAINTAINER miyamamoto
 
 # tini
 #RUN wget -e HTTPS_PROXY=10.81.247.8:8080 --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
