@@ -1,4 +1,4 @@
-# smly/notebook
+# miyamamoto/notebook
 # modified by mitsuo yamamoto.
 
 ## Usage
