@@ -1,7 +1,9 @@
 # miyamamoto/notebook
 
-modified by mitsuo yamamoto.
-this Docker file is based on smily/notebook
+
+* modified by mitsuo yamamoto.
+
+* this Docker file is based on smily/notebook
 
 ## Usage
 
