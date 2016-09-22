@@ -78,7 +78,7 @@ dependencies:
 - locket=0.2.0=py35_1
 - lxml=3.6.0=py35_0
 - markupsafe=0.23=py35_2
-- matplotlib=1.5.1=py35_0
+- matplotlib=1.5.1=np111py35_0
 - mistune=0.7.2=py35_0
 - mkl=11.3.3=0
 - mkl-service=1.1.2=py35_2
