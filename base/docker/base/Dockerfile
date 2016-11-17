@@ -20,6 +20,7 @@ RUN apt-get -y update &&\
       make \
       wget \
       unzip \
+      curl \
       &&\
     echo ">>>>> packages for building python packages" &&\
     apt-get --no-install-recommends -y install \
@@ -32,7 +33,6 @@ RUN apt-get -y update &&\
       libhdf5-serial-dev \
       postgresql \
       libpq-dev \
-      curl \
       &&\
     echo ">>>>> packages for building OpenCV3" &&\
     apt-get --no-install-recommends -y install \
