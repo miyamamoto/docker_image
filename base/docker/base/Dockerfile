@@ -48,6 +48,7 @@ RUN apt-get -y update &&\
       libatlas-base-dev \
       gfortran \
       libxtst6 \
+      emacs \
       &&\
     apt-get clean &&\
     rm -rf /var/lib/apt/lists/*
@@ -72,24 +73,24 @@ RUN cd /opt &&\
 
 
 # -=-=-=- Google Cloud SDK (root env) -=-=-=-
-ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
-RUN CLOUDSDK_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip" &&\
-    CLOUDSDK_PATH="/opt/google-cloud-sdk.zip" &&\
-    cd /opt &&\
-    wget -q $CLOUDSDK_URL -O $CLOUDSDK_PATH &&\
-    unzip google-cloud-sdk.zip &&\
-    rm google-cloud-sdk.zip &&\
-    \
-    google-cloud-sdk/install.sh \
-        --usage-reporting=true \
-        --path-update=true \
-        --bash-completion=true \
-        --rc-path=/.bashrc \
-        --additional-components \
-            app-engine-python app kubectl alpha beta gcd-emulator pubsub-emulator cloud-datastore-emulator
+#ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
+#RUN CLOUDSDK_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip" &&\
+#    CLOUDSDK_PATH="/opt/google-cloud-sdk.zip" &&\
+#    cd /opt &&\
+#    wget -q $CLOUDSDK_URL -O $CLOUDSDK_PATH &&\
+#    unzip google-cloud-sdk.zip &&\
+#    rm google-cloud-sdk.zip &&\
+#    \
+#    google-cloud-sdk/install.sh \
+#        --usage-reporting=true \
+#        --path-update=true \
+#        --bash-completion=true \
+#        --rc-path=/.bashrc \
+#        --additional-components \
+#            app-engine-python app kubectl alpha beta gcd-emulator pubsub-emulator cloud-datastore-emulator
 
-ENV CLOUDSDK_PYTHON /opt/conda/bin/python2
-ENV PATH "$PATH:/opt/google-cloud-sdk/bin"
+#ENV CLOUDSDK_PYTHON /opt/conda/bin/python2
+#ENV PATH "$PATH:/opt/google-cloud-sdk/bin"
 
 # XGBoost
 RUN cd /opt && \
@@ -105,53 +106,53 @@ RUN cd /opt && \
 
 
 # OpenCV3
-RUN OPENCV_URL="https://github.com/opencv/opencv/archive/3.1.0.tar.gz" &&\
-    OPENCV_CONTRIB_URL="https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz" &&\
-    cd /opt &&\
-    /bin/bash -c "source activate py35" &&\
-    wget -q --no-check-certificate $OPENCV_URL -O opencv.tgz &&\
-    wget -q --no-check-certificate $OPENCV_CONTRIB_URL -O opencv_contrib.tgz &&\
-    tar zxf opencv.tgz &&\
-    tar zxf opencv_contrib.tgz &&\
-    rm opencv.tgz opencv_contrib.tgz &&\
-    mkdir /opt/opencv-3.1.0/build &&\
-    cd /opt/opencv-3.1.0/build &&\
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/opt/conda/envs/py35 \
-          -D WITH_TBB=ON \
-          -D PYTHON_EXECUTABLE=/opt/conda/envs/py35/bin/python \
-          -D PYTHON_INCLUDE_DIR=/opt/conda/envs/py35/include/python3.5m/ \
-          -D PYTHON_PACKAGES_PATH=/opt/conda/envs/py35/lib/python3.5/site-packages/ \
-          -D INSTALL_C_EXAMPLES=OFF \
-          -D INSTALL_PYTHON_EXAMPLES=ON \
-          -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-3.1.0/modules \
-          -D BUILD_EXAMPLES=ON .. &&\
-    echo 'find_package(HDF5)' >> ../modules/python/common.cmake &&\
-    echo 'include_directories(${HDF5_INCLUDE_DIRS})' >> ../modules/python/common.cmake &&\
-    make -j4 &&\
-    make install &&\
-    ldconfig
+#RUN OPENCV_URL="https://github.com/opencv/opencv/archive/3.1.0.tar.gz" &&\
+#    OPENCV_CONTRIB_URL="https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz" &&\
+#    cd /opt &&\
+#    /bin/bash -c "source activate py35" &&\
+#    wget -q --no-check-certificate $OPENCV_URL -O opencv.tgz &&\
+#    wget -q --no-check-certificate $OPENCV_CONTRIB_URL -O opencv_contrib.tgz &&\
+#    tar zxf opencv.tgz &&\
+#    tar zxf opencv_contrib.tgz &&\
+#    rm opencv.tgz opencv_contrib.tgz &&\
+#    mkdir /opt/opencv-3.1.0/build &&\
+#    cd /opt/opencv-3.1.0/build &&\
+#    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#          -D CMAKE_INSTALL_PREFIX=/opt/conda/envs/py35 \
+#          -D WITH_TBB=ON \
+#          -D PYTHON_EXECUTABLE=/opt/conda/envs/py35/bin/python \
+#          -D PYTHON_INCLUDE_DIR=/opt/conda/envs/py35/include/python3.5m/ \
+#          -D PYTHON_PACKAGES_PATH=/opt/conda/envs/py35/lib/python3.5/site-packages/ \
+#          -D INSTALL_C_EXAMPLES=OFF \
+#          -D INSTALL_PYTHON_EXAMPLES=ON \
+#          -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-3.1.0/modules \
+#          -D BUILD_EXAMPLES=ON .. &&\
+#    echo 'find_package(HDF5)' >> ../modules/python/common.cmake &&\
+#    echo 'include_directories(${HDF5_INCLUDE_DIRS})' >> ../modules/python/common.cmake &&\
+#    make -j4 &&\
+#    make install &&\
+#    ldconfig
 
 # RGF
-RUN RGF_URL="http://stat.rutgers.edu/home/tzhang/software/rgf/rgf1.2.zip" &&\
-    RGF_FILE="rgf1.2.zip" &&\
-    cd /opt &&\
-    wget -q --no-check-certificate $RGF_URL -O $RGF_FILE &&\
-    echo "753237be5e2ec97f5627c1a0efeb5562caf4f455b3c0114d44bc5bf12595f0a5  rgf1.2.zip" | sha256sum -c - &&\
-    unzip $RGF_FILE &&\
-    cd rgf1.2 &&\
-    \
-    make -j4 &&\
-    ln -s /opt/rgf1.2/bin/rgf /opt/conda/bin/rgf
+#RUN RGF_URL="http://stat.rutgers.edu/home/tzhang/software/rgf/rgf1.2.zip" &&\
+#    RGF_FILE="rgf1.2.zip" &&\
+#    cd /opt &&\
+#    wget -q --no-check-certificate $RGF_URL -O $RGF_FILE &&\
+#    echo "753237be5e2ec97f5627c1a0efeb5562caf4f455b3c0114d44bc5bf12595f0a5  rgf1.2.zip" | sha256sum -c - &&\
+#    unzip $RGF_FILE &&\
+#    cd rgf1.2 &&\
+#    \
+#    make -j4 &&\
+#    ln -s /opt/rgf1.2/bin/rgf /opt/conda/bin/rgf
 
 # LibFM
-RUN LIBFM_URL="http://www.libfm.org/libfm-1.42.src.tar.gz" &&\
-    LIBFM_FILE="libfm-1.42.src.tar.gz" &&\
-    cd /opt &&\
-    wget -q --no-check-certificate $LIBFM_URL -O $LIBFM_FILE &&\
-    echo "6aaa2503aa1e6da7d08dd86bcf0907ee480f223547ca3b3d08c8f404f7f31695  libfm-1.42.src.tar.gz" | sha256sum -c - &&\
-    tar zxf $LIBFM_FILE &&\
-    cd libfm-1.42.src &&\
-    \
-    make &&\
-    ln -s /opt/bin/libFM /opt/conda/bin/libFM
+#RUN LIBFM_URL="http://www.libfm.org/libfm-1.42.src.tar.gz" &&\
+#    LIBFM_FILE="libfm-1.42.src.tar.gz" &&\
+#    cd /opt &&\
+#    wget -q --no-check-certificate $LIBFM_URL -O $LIBFM_FILE &&\
+#    echo "6aaa2503aa1e6da7d08dd86bcf0907ee480f223547ca3b3d08c8f404f7f31695  libfm-1.42.src.tar.gz" | sha256sum -c - &&\
+#    tar zxf $LIBFM_FILE &&\
+#    cd libfm-1.42.src &&\
+#    \
+#    make &&\
+#    ln -s /opt/bin/libFM /opt/conda/bin/libFM
