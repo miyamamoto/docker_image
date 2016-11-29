@@ -104,6 +104,7 @@ RUN cd /opt && \
     bash -c "source activate py35 && python setup.py install" &&\
     ln -s $XGBOOST_PATH/xgboost /opt/conda/bin/xgboost
 
+# LightGBM
 RUN git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM &&\
     mkdir build ; cd build &&\
     cmake .. &&\
