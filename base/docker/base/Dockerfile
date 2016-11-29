@@ -103,6 +103,10 @@ RUN cd /opt && \
     bash -c "source activate py35 && python setup.py install" &&\
     ln -s $XGBOOST_PATH/xgboost /opt/conda/bin/xgboost
 
+RUN git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM &&\
+    mkdir build ; cd build &&\
+    cmake .. &&\
+    make -j 
 
 # OpenCV3
 RUN OPENCV_URL="https://github.com/opencv/opencv/archive/3.1.0.tar.gz" &&\
