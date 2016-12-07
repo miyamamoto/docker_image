@@ -71,7 +71,6 @@ COPY py35.yml /opt/
 RUN cd /opt &&\
     conda env create -f py35.yml
 
-
 # -=-=-=- Google Cloud SDK (root env) -=-=-=-
 #ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
 #RUN CLOUDSDK_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip" &&\
@@ -112,7 +111,7 @@ RUN cd /opt && \
     make -j &&\
     make install&&\
     cd ../python-package &&\	
-    bash -c "source activate py35 && python setup.py install"
+    bash -c "source activate py35 && python setup.py install "
 
 # OpenCV3
 #RUN OPENCV_URL="https://github.com/opencv/opencv/archive/3.1.0.tar.gz" &&\
