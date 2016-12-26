@@ -37,6 +37,12 @@ RUN bash -c "source activate py35 && pip install -U git+https://github.com/vilce
 
 RUN bash -c "conda install pyqt"
 
+RUN bash -c "apt-get update && apt-get install -yV cvs gsl-bin libgsl0-dbg libgsl0-dev libboost-all-dev libgsl-dev"
+
+RUN bash -c "cvs -z3 -d:pserver:anonymous@pygsl.cvs.sourceforge.net:/cvsroot/pygsl co -P pygsl"
+
+RUN bash -c "cd pygsl && source activate py35 && python setup.py config && python setup.py install"
+
 # jupyter notebook
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 COPY run_notebook.sh /usr/local/bin/run_notebook.sh
