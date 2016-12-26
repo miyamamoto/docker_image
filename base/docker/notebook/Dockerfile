@@ -33,8 +33,10 @@ WORKDIR /home/$NB_USER/work
 ENTRYPOINT ["tini", "--"]
 CMD ["run_notebook.sh"]
 
-RUN bash -c "source activate py35 && pip install -U git+https://github.com/vilcenzo/hyperopt.git@8b37bb4a1ac0d03fc14ec95ea0b73ec6019c2ad7" 
+RUN bash -c "source activate py35 && pip install -U git+https://github.com/vilcenzo/hyperopt.git@8b37bb4a1ac0d03fc14ec95ea0b73ec6019c2ad7"
+
 RUN bash -c "conda install pyqt"
+
 # jupyter notebook
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 COPY run_notebook.sh /usr/local/bin/run_notebook.sh
