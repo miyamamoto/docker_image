@@ -1,4 +1,4 @@
-FROM miyamamoto/base:latest
+FROM miyamamoto/base_cuda:1.0
 MAINTAINER miyamamoto
 
 # tini
@@ -35,13 +35,13 @@ CMD ["run_notebook.sh"]
 
 RUN bash -c "source activate py35 && pip install -U git+https://github.com/vilcenzo/hyperopt.git@8b37bb4a1ac0d03fc14ec95ea0b73ec6019c2ad7"
 
+RUN bash -c "source activate py35 && pip install chainer==1.10"
+
+
 RUN bash -c "conda install pyqt"
 
-RUN bash -c "apt-get update && apt-get install -yV cvs gsl-bin libgsl0-dbg libgsl0-dev libboost-all-dev libgsl-dev"
+RUN bash -c "apt-get update && apt-get install -yV cvs gsl-bin libgsl0-dbg libgsl0-dev libboost-all-dev"
 
-RUN bash -c "cvs -z3 -d:pserver:anonymous@pygsl.cvs.sourceforge.net:/cvsroot/pygsl co -P pygsl"
-
-RUN bash -c "cd pygsl && source activate py35 && python setup.py config && python setup.py install"
 
 # jupyter notebook
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/jupyter_notebook_config.py
