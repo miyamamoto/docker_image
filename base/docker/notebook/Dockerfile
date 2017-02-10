@@ -1,4 +1,4 @@
-FROM miyamamoto/base_cuda:1.0
+FROM miyamamoto/base:latest
 MAINTAINER miyamamoto
 
 # tini
