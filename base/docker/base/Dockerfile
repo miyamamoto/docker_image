@@ -1,4 +1,5 @@
-FROM ubuntu:16.04
+#FROM ubuntu:16.04
+FROM nvidia/7.5-cudnn4-devel
 MAINTAINER miyamamoto <mitsuo.yamamoto@gmail.com>
 
 # Install dependent packages via apt-get
@@ -71,6 +72,7 @@ COPY py35.yml /opt/
 RUN cd /opt &&\
     conda env create -f py35.yml
 
+
 # -=-=-=- Google Cloud SDK (root env) -=-=-=-
 #ENV CLOUDSDK_PYTHON_SITEPACKAGES 1
 #RUN CLOUDSDK_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip" &&\
@@ -104,14 +106,10 @@ RUN cd /opt && \
     ln -s $XGBOOST_PATH/xgboost /opt/conda/bin/xgboost
 
 # LightGBM
-#RUN cd /opt && \
-#    git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM &&\
+#RUN git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM &&\
 #    mkdir build ; cd build &&\
 #    cmake .. &&\
-#    make -j &&\
-#    make install&&\
-#    cd ../python-package &&\	
-#    bash -c "source activate py35 && python setup.py install "
+#    make -j 
 
 # OpenCV3
 #RUN OPENCV_URL="https://github.com/opencv/opencv/archive/3.1.0.tar.gz" &&\
