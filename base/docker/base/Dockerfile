@@ -1,6 +1,6 @@
 #FROM ubuntu:16.04
 #FROM nvidia/7.5-cudnn4-devel
-FROM nvidia/cuda:7.5-cudnn5-devel
+FROM nvidia/cuda:8.0-devel-ubuntu14.04
 MAINTAINER miyamamoto <mitsuo.yamamoto@gmail.com>
 
 # Install dependent packages via apt-get
