@@ -1,1 +1,1 @@
-docker build -t miyamamoto/base:1.0 .
+docker build -t miyamamoto/base:latest .
