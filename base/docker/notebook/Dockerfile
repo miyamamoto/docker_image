@@ -37,7 +37,7 @@ RUN bash -c "source activate py35 && pip install -U git+https://github.com/vilce
 
 RUN bash -c "source activate py35 && pip install chainer==1.10"
 RUN bash -c "conda install pyqt"
-RUN bash -c "apt-get update && apt-get install -yV cvs gsl-bin libgsl0-dbg libgsl0-dev libboost-all-dev"
+RUN bash -c "apt-get update && apt-get install -yV cvs gsl-bin libgsl0-dbg libgsl0-dev libboost-all-dev msgpack glob"
 
 # jupyter notebook
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/jupyter_notebook_config.py
