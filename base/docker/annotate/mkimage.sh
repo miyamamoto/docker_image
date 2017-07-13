@@ -1,1 +1,1 @@
-docker build -t miyamamoto/anotate:latest .
+docker build -t miyamamoto/annotate:latest .
