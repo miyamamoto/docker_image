@@ -13,7 +13,7 @@ RUN conda install -y -c menpo opencv
 RUN conda install -y cmake
 RUN conda install -y gcc
 RUN conda install -y boost
-RUN pip install pyannote-video
+RUN pip install pyannzote-video
 RUN cd /opt && git clone https://github.com/pyannote/pyannote-data.git
 RUN cd /opt && git clone https://github.com/davisking/dlib-models.git
 RUN cd /opt && bunzip2 dlib-models/dlib_face_recognition_resnet_model_v1.dat.bz2
