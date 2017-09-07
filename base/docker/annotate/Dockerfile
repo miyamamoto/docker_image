@@ -26,4 +26,4 @@ RUN cd /opt/pyannote-video && python setup.py install
 RUN pip install pysrt
 RUN pip install luigi
 RUN pip install python_speech_features
-RUN pip install aenas
+RUN pip install aeneas
