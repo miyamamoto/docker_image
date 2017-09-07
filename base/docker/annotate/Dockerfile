@@ -7,7 +7,8 @@ RUN apt-get -y install clang libc++-dev libc++abi-dev
 RUN apt-get -y install cmake
 RUN apt-get -y install git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 RUN apt-get -y install libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev checkinstall cpio axel
-RUN apt-get -y install  build-essential
+RUN apt-get -y install  build-essential libespeak-dev
+RUN apt-get -y install s3cmd
 RUN conda install -y -c menpo ffmpeg=3.1.3
 RUN conda install -y -c menpo opencv
 RUN conda install -y cmake
@@ -23,3 +24,6 @@ RUN pip install moviepy --upgrade
 RUN cd /opt/pyannote-core && python setup.py install 
 RUN cd /opt/pyannote-video && python setup.py install 
 RUN pip install pysrt
+RUN pip install luigi
+RUN pip install python_speech_features
+RUN pip install aenas
